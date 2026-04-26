@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Zekkei Brand Palette */
+    --gold-light: 43 80% 72%;
+    --gold-mid: 41 52% 54%;
+    --gold-dark: 35 61% 41%;
+    --black-deep: 0 0% 3%;
+    --navy-deep: 220 40% 18%;
+    --sand-warm: 40 52% 90%;
+    --white-pure: 0 0% 100%;
+    --white-soft: 33 27% 85%;
+
+    /* Shadcn mapped tokens */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 100%;
+    --card: 220 40% 18%;
+    --card-foreground: 0 0% 100%;
+    --popover: 220 40% 18%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 41 52% 54%;
+    --primary-foreground: 0 0% 3%;
+    --secondary: 220 40% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 30% 14%;
+    --muted-foreground: 33 27% 85%;
+    --accent: 43 80% 72%;
+    --accent-foreground: 0 0% 3%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 41 52% 54%;
+    --input: 220 40% 12%;
+    --ring: 41 52% 54%;
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Luxury shadows */
+    --shadow-gold: 0 0 0 1px hsla(41, 52%, 54%, 0.15), 0 4px 12px hsla(0, 0%, 0%, 0.4);
+    --shadow-lift: 0 0 0 1px hsla(41, 52%, 54%, 0.3), 0 12px 24px hsla(0, 0%, 0%, 0.5);
+    --shadow-card: 0 8px 40px hsla(41, 52%, 54%, 0.08);
+
+    /* Easing */
+    --ease-luxury: cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border/20;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'EB Garamond', serif;
+    cursor: auto;
+  }
+
+  @media (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  h1, h2, h3 {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+/* Typography utilities */
+@layer utilities {
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .font-subhead {
+    font-family: 'Cinzel', serif;
+  }
+  .font-body {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+  }
+
+  .font-body.italic,
+  .italic .font-body,
+  p.italic {
+    font-weight: 500;
+  }
+  .font-micro {
+    font-family: 'Cinzel Decorative', serif;
+  }
+}
+
+/* Gold shimmer animation */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, 
+    hsl(var(--gold-mid)), 
+    hsl(var(--gold-light)), 
+    hsl(var(--gold-dark)), 
+    hsl(var(--gold-light)), 
+    hsl(var(--gold-mid))
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 6s linear infinite;
+}
+
+/* Grain texture overlay */
+.grain-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Scroll indicator pulse */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+
+.scroll-indicator {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* Gold gradient button */
+.btn-gold {
+  background: linear-gradient(90deg, 
+    hsl(var(--gold-dark)), 
+    hsl(var(--gold-mid)), 
+    hsl(var(--gold-dark))
+  );
+  color: hsl(var(--black-deep));
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: filter 0.3s ease;
+}
+
+.btn-gold:hover {
+  filter: brightness(1.1);
+}
+
+/* Ghost button */
+.btn-ghost-gold {
+  border: 1px solid hsl(var(--gold-mid));
+  color: hsl(var(--gold-mid));
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-ghost-gold:hover {
+  background: hsla(41, 52%, 54%, 0.1);
+  border-color: hsl(var(--gold-light));
+}
+
+/* Form input luxury style */
+.input-luxury {
+  background: hsl(220, 40%, 10%);
+  border: none;
+  border-bottom: 1px solid hsl(var(--gold-dark));
+  border-radius: 0;
+  color: hsl(var(--white-pure));
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  padding: 16px 0;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-luxury:focus {
+  border-color: hsl(var(--gold-mid));
+  box-shadow: 0 2px 0 0 hsla(41, 52%, 54%, 0.4);
+}
+
+.input-luxury::placeholder {
+  color: hsla(33, 27%, 85%, 0.4);
+}
+
+/* Radio pill */
+.radio-pill {
+  border: 1px solid hsl(var(--gold-dark));
+  padding: 8px 24px;
+  border-radius: 9999px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: hsl(var(--gold-mid));
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radio-pill:hover {
+  border-color: hsl(var(--gold-light));
+}
+
+.radio-pill.active {
+  background: hsl(var(--gold-mid));
+  color: hsl(var(--black-deep));
+  border-color: hsl(var(--gold-mid));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--black-deep));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(41, 52%, 54%, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsla(41, 52%, 54%, 0.5);
+}
+
+/* Mobile readability */
+@media (max-width: 768px) {
+  .font-body {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+}
